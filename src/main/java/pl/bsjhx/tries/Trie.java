@@ -24,7 +24,7 @@ class Trie {
             TrieNodes newNode = i == chars.length - 1 ? new TrieNodes(true) : new TrieNodes();
             rootNodes.children.put(c, newNode);
         } else if (i == chars.length - 1) {
-            rootNodes.children.put(c, new TrieNodes(true));
+            rootNodes.children.get(c).isWord = true;
         }
 
         TrieNodes current = rootNodes.children.get(c);
