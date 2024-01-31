@@ -1,6 +1,6 @@
 package pl.bsjhx.bitmanipulation;
 
-class SingleNumber {
+class BitsManipulationsEasy {
     public int singleNumber(int[] nums) {
         int result = 0;
         for (int n : nums) {
@@ -22,5 +22,19 @@ class SingleNumber {
             n = n >> 1;
         }
         return r;
+    }
+
+    public int[] countBits(int n) {
+        int[] res = new int[n + 1];
+        for (int i = 0 ; i <= n; i++) {
+            int t = i, c = 0;
+            while (t != 0) {
+                c++;
+                t = t & (t-1);
+            }
+            res[i] = c;
+        }
+
+        return res;
     }
 }
