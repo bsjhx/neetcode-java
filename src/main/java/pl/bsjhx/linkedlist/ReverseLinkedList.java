@@ -3,7 +3,7 @@ package pl.bsjhx.linkedlist;
 /**
  * <a href="https://leetcode.com/problems/reverse-linked-list/">206. Reverse Linked List</a>
  */
-class Solution {
+class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
         if (head == null) {
             return null;
@@ -26,6 +26,9 @@ class Solution {
 class ListNode {
     int val;
     ListNode next;
+
+    public ListNode() {
+    }
 
     ListNode(int val) {
         this.val = val;

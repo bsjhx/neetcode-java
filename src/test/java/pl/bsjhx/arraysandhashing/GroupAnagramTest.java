@@ -4,9 +4,24 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GroupAnagramTest {
+
+    @Test
+    void name() {
+        int a = 25846;
+        int b = 25846;
+        while (a != 0) {
+            System.out.print(a);
+            System.out.print(" ");
+            System.out.print(b);
+            System.out.print(" ");
+            System.out.print(Integer.toBinaryString(a));
+            System.out.print(" ");
+            System.out.println(Integer.toBinaryString(b));
+            a >>= 1;
+            b /= 2;
+        }
+    }
 
     @Test
     void groupAnagrams() {

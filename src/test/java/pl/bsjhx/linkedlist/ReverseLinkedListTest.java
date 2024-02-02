@@ -10,7 +10,7 @@ class ReverseLinkedListTest {
     void reverseListTest() {
         ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
 
-        Solution solution = new Solution();
+        ReverseLinkedList solution = new ReverseLinkedList();
         ListNode actual = solution.reverseList(head);
         int expectedVal = 5;
 
