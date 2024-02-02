@@ -1,7 +1,5 @@
 package pl.bsjhx.linkedlist;
 
-import java.util.List;
-
 class MergeTwoLists {
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
