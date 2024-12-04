@@ -1,18 +1,19 @@
 package pl.bsjhx.katas.adventofcode.year2024;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Starter {
 
     public static void main(String[] args) throws IOException {
-        var day1 = new Day1Of2024();
-        System.out.printf("Day 1, part 1 result %s%n", day1.calculate());
-        System.out.printf("Day 1, part 2 result %s%n", day1.calculate2());
-        
-        var day2 = new Day2Of2024();
-        System.out.printf("Day 2, part 1 result %s%n", day2.calculate());
-//        System.out.printf("Day 2, part 2 result %s%n", day2.calculate2());
-        
-        
+        List<Advent> days = new ArrayList<>(24);
+        days.add(new Day1Of2024());
+        days.add(new Day2Of2024());
+
+        for (int i = 0; i < days.size(); i++) {
+            System.out.printf("Day %s, part 1 result: %s%n", i + 1, days.get(i).calculatePartOne());
+            System.out.printf("Day %s, part 2 result: %s%n", i + 1, days.get(1).calculatePartTwo());
+        }
     }
 }

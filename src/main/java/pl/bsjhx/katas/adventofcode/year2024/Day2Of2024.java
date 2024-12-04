@@ -7,15 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Day2Of2024 {
+public class Day2Of2024 implements Advent {
 
-    public static void main(String[] args) throws IOException {
-        var day2 = new Day2Of2024();
-        System.out.printf("Day 2, part 1 result %s%n", day2.calculate());
-        System.out.printf("Day 1, part 2 result %s%n", day2.calculate2());
-    }
-
-    long calculate() throws IOException {
+    public long calculatePartOne() throws IOException {
         var data = readFromFile();
 
 
@@ -43,20 +37,13 @@ public class Day2Of2024 {
                         if (prev - i < 0 && diff == -1) {
                             return 0;
                         }
-                        
+
                         prev = i;
                     }
                     return 1;
                 })
                 .filter(v -> v == 1)
                 .count();
-    }
-
-    long calculate2() throws IOException {
-        var data = readFromFile2();
-        return data.l.stream()
-                .mapToLong(el -> Long.parseLong(el) * data.r.getOrDefault(el, 0L))
-                .sum();
     }
 
     List<List<Integer>> readFromFile() throws IOException {

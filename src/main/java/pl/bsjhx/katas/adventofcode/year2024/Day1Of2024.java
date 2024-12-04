@@ -7,9 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Day1Of2024 {
+public class Day1Of2024 implements Advent {
 
-    long calculate() throws IOException {
+     public long calculatePartOne() throws IOException {
         var data = readFromFile();
         var result = 0L;
         
@@ -22,7 +22,7 @@ public class Day1Of2024 {
         return result;
     }
     
-    long calculate2() throws IOException {
+    public long calculatePartTwo() throws IOException {
         var data = readFromFile2();
         return data.l.stream()
                 .mapToLong(el -> Long.parseLong(el) * data.r.getOrDefault(el, 0L))
