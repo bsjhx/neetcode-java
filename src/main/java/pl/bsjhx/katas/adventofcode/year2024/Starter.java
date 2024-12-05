@@ -13,7 +13,7 @@ public class Starter {
 
         for (int i = 0; i < days.size(); i++) {
             System.out.printf("Day %s, part 1 result: %s%n", i + 1, days.get(i).calculatePartOne());
-            System.out.printf("Day %s, part 2 result: %s%n", i + 1, days.get(1).calculatePartTwo());
+            System.out.printf("Day %s, part 2 result: %s%n", i + 1, days.get(i).calculatePartTwo());
         }
     }
 }
