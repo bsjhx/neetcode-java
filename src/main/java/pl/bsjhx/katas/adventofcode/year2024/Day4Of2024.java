@@ -25,6 +25,33 @@ public class Day4Of2024 implements Advent {
         }
         return result;
     }
+    
+    public long calculatePartTwo() throws IOException {
+        var data = readFromFile();
+        var result = 0;
+        for (int i = 1; i < data.size() - 1; i++) {
+            for (int j = 1; j < data.getFirst().size() - 1; j++) {
+                if ("A".equals(data.get(i).get(j))) {
+                    String diagonalOne = getDiagonalOne(data, i, j);
+                    String diagonalTwo = getDiagonalTwo(data, i, j);
+                    if (diagonalOne.equals("MAS") || diagonalOne.equals("SAM")) {
+                        if (diagonalTwo.equals("MAS") || diagonalTwo.equals("SAM")) {
+                            result++;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private static String getDiagonalOne(List<List<String>> data, int i, int j) {
+        return data.get(i - 1).get(j - 1) + data.get(i).get(j) + data.get(i + 1).get(j + 1);
+    }
+    
+    private static String getDiagonalTwo(List<List<String>> data, int i, int j) {
+        return data.get(i - 1).get(j + 1) + data.get(i).get(j) + data.get(i + 1).get(j - 1);
+    }
 
     private final Map<String, String> xms = Map.of(
             "X", "M",
