@@ -12,4 +12,10 @@ class Day3Of2024Test {
         var day = new Day3Of2024();
         assertEquals(161, day.calculatePartOne());
     }
+    
+    @Test
+    void calculatePartTwo() throws IOException {
+        var day = new Day3Of2024();
+        assertEquals(48, day.calculatePartTwo());
+    }
 }

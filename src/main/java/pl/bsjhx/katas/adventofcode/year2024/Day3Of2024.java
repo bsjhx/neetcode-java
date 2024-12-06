@@ -73,6 +73,85 @@ public class Day3Of2024 implements Advent {
         return result;
     }
 
+    public long calculatePartTwo() throws IOException {
+        var data = readFromFile();
+        var left = 0;
+        var right = 3;
+        var result = 0L;
+        var mode = "first";
+        var current = "";
+        var first = 0L;
+        var second = 0L;
+        var lastMul = 0;
+
+        while (left < data.length() && right < data.length()) {
+            switch (mode) {
+                case "first":
+                    current = data.substring(left, right + 1);
+                    if (left + 7 < data.length() && "don't()".equals(data.substring(left, left + 7))) {
+                        mode = "dont";
+                    }
+                    if ("mul(".equals(current)) {
+                        lastMul = right;
+                        left = right + 1;
+                        right++;
+                        mode = "mul_found";
+                    } else {
+                        left++;
+                        right++;
+                    }
+                    break;
+                case "mul_found": {
+                    current = data.substring(left, right + 1);
+                    if (isNumeric(current)) {
+                        right++;
+                    } else if (current.endsWith(",")) {
+                        first = Integer.parseInt(data.substring(left, right));
+                        mode = "first_number_found";
+                        left = right + 1;
+                        right++;
+                    } else {
+                        mode = "first";
+                        left = lastMul + 1;
+                        right = lastMul + 4;
+                    }
+                    break;
+                }
+                case "first_number_found": {
+                    current = data.substring(left, right + 1);
+                    if (isNumeric(current)) {
+                        right++;
+                    } else if (current.endsWith(")")) {
+                        second = Integer.parseInt(data.substring(left, right));
+                        mode = "first";
+                        left = right + 1;
+                        right += 4;
+                        result += (first * second);
+                    } else {
+                        mode = "first";
+                        left = lastMul + 1;
+                        right = lastMul + 4;
+                    }
+                    break;
+                }
+                case "dont": {
+                    current = data.substring(left, left + 4);
+                    if ("do()".equals(current)) {
+                        mode = "first";
+                        left = left  + 4;
+                        right = left + 3;
+                    } else {
+                        left++;
+                    }
+                    break;
+                }
+                default: throw new IllegalStateException();
+            }
+        }
+
+        return result;
+    }
+
     private String readFromFile() throws IOException {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         try {
