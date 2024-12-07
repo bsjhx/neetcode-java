@@ -35,7 +35,44 @@ public class Day5Of2024 implements Advent {
     }
     
     public long calculatePartTwo() throws IOException {
-        return 0;
+        var fromFile = readFromFile();
+        var rules = fromFile.orderRules;
+
+        return fromFile.paths.stream().mapToInt(path -> {
+            List<String> previous = new ArrayList<>();
+            var isValid = true;
+
+            for (int j = 0; j < path.size(); j++) {
+                var p = path.get(j);
+                if (!rules.containsKey(p) && j != path.size() - 1) {
+                    previous.add(p);
+                    isValid = false;
+                    continue;
+                }
+                if (previous.isEmpty()) {
+                    previous.add(p);
+                    continue;
+                }
+
+                var prevSize = previous.size();
+                for (int i = 0; i < prevSize; i++) {
+                    if (!rules.containsKey(previous.get(i))) {
+                        previous.add(i, p);
+                    } else if (!rules.get(previous.get(i)).contains(p) ){
+                        isValid = false;
+                        previous.add(i, p);
+                    } else {
+                        previous.add(p);
+                    }
+                }
+            }
+
+            System.out.print(isValid);
+            System.out.print("    ");
+            System.out.println(path);
+            var middle = previous.get(path.size() / 2);
+            return isValid ? 0 : Integer.parseInt(middle);
+        }).sum();
     }
 
     private FromFile readFromFile() throws IOException {
