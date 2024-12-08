@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.util.*;
 
 public class Day5Of2024 implements Advent {
@@ -40,38 +41,32 @@ public class Day5Of2024 implements Advent {
 
         return fromFile.paths.stream().mapToInt(path -> {
             List<String> previous = new ArrayList<>();
-            var isValid = true;
-
-            for (int j = 0; j < path.size(); j++) {
-                var p = path.get(j);
-                if (!rules.containsKey(p) && j != path.size() - 1) {
-                    previous.add(p);
-                    isValid = false;
-                    continue;
-                }
+            for (var p : path) {
                 if (previous.isEmpty()) {
                     previous.add(p);
                     continue;
                 }
 
-                var prevSize = previous.size();
-                for (int i = 0; i < prevSize; i++) {
-                    if (!rules.containsKey(previous.get(i))) {
-                        previous.add(i, p);
-                    } else if (!rules.get(previous.get(i)).contains(p) ){
-                        isValid = false;
-                        previous.add(i, p);
-                    } else {
-                        previous.add(p);
+                for (var pr : previous) {
+                    if (!rules.containsKey(pr) || !rules.get(pr).contains(p)) {
+                        var nth = new ArrayList<>(path);
+                        nth.sort((o1, o2) -> {
+                            if (rules.getOrDefault(o1, List.of()).contains(o2)) {
+                                return -1;
+                            } else if (rules.getOrDefault(o2, List.of()).contains(o1)) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        });
+                        var middle = nth.get(nth.size() / 2);
+                        return Integer.parseInt(middle);
                     }
                 }
+                previous.add(p);
             }
 
-            System.out.print(isValid);
-            System.out.print("    ");
-            System.out.println(path);
-            var middle = previous.get(path.size() / 2);
-            return isValid ? 0 : Integer.parseInt(middle);
+            return 0;
         }).sum();
     }
 
