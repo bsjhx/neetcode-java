@@ -16,7 +16,15 @@ public class Day7Of2024 implements Advent {
                 .mapToLong(e -> helper(e.getValue(), e.getKey(), 0, 0L))
                 .sum();
     }
-    
+
+    public long calculatePartTwo() throws IOException {
+        var r = readFromFile();
+        return r.entrySet()
+                .stream()
+                .mapToLong(e -> helper2(e.getValue(), e.getKey(), 0, 0L))
+                .sum();
+    }
+
     private long helper(final List<Long> values, final long targetValue, int i, long currentValue) {
         if (i == values.size()) {
             return currentValue == targetValue ? currentValue : 0;
@@ -34,9 +42,38 @@ public class Day7Of2024 implements Advent {
         } else {
             return sumValue;
         }
-    };
+    }
 
-    public long calculatePartTwo() throws IOException {
+    private long helper2(final List<Long> values, final long targetValue, int i, long currentValue) {
+        if (i == values.size()) {
+            return currentValue == targetValue ? currentValue : 0;
+        }
+
+        if (currentValue > targetValue) {
+            return 0;
+        }
+
+        var newValue = values.get(i);
+
+        long sumValue = helper2(values, targetValue, i + 1, currentValue + newValue);
+
+        if (sumValue == targetValue) {
+            return sumValue;
+        }
+        
+        var s = currentValue + String.valueOf(newValue);
+        var togetherValue =  helper2(values, targetValue, i + 1, Long.parseLong(s));
+
+        if (togetherValue == targetValue) {
+            return togetherValue;
+        }
+        
+        long multiplyValue = helper2(values, targetValue, i + 1, currentValue * newValue);
+
+        if (multiplyValue == targetValue) {
+            return multiplyValue;
+        }
+        
         return 0;
     }
 
