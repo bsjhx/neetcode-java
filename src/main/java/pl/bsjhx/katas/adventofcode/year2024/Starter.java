@@ -15,6 +15,13 @@ public class Starter {
         days.add(new Day5Of2024());
         days.add(new Day6Of2024());
         days.add(new Day7Of2024());
+        days.add(new Advent() {
+            @Override
+            public long calculatePartOne() throws IOException {
+                return Advent.super.calculatePartOne();
+            }
+        });
+        days.add(new Day9Of2024());
 
         for (int i = 0; i < days.size(); i++) {
             System.out.printf("Day %s, part 1 result: %s%n", i + 1, days.get(i).calculatePartOne());
