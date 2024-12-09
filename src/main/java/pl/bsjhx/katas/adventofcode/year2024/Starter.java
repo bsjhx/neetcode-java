@@ -14,6 +14,7 @@ public class Starter {
         days.add(new Day4Of2024());
         days.add(new Day5Of2024());
         days.add(new Day6Of2024());
+        days.add(new Day7Of2024());
 
         for (int i = 0; i < days.size(); i++) {
             System.out.printf("Day %s, part 1 result: %s%n", i + 1, days.get(i).calculatePartOne());
