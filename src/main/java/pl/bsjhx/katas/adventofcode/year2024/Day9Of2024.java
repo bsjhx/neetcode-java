@@ -25,29 +25,16 @@ public class Day9Of2024 implements Advent {
             }
         }
 
-//        spaces.forEach(l -> {
-//            if (l == -1) {
-//                System.out.print(".");
-//            } else {
-//                System.out.print(l);
-//            }
-//        });
-
         var result = 0L;
         var i = 0L;
         while (!spaces.isEmpty()) {
             if (spaces.peekFirst() != -1) {
-                System.out.printf("%s * %s%n", i, spaces.peekFirst());
-                if (spaces.isEmpty()) {
-                    return result;
-                }
                 result += i * spaces.pollFirst();
             } else {
                 spaces.pollFirst();
                 while (!spaces.isEmpty() && spaces.peekLast() == -1) {
                     spaces.pollLast();
                 }
-                System.out.printf("%s * %s%n", i, spaces.peekLast());
                 if (spaces.isEmpty()) {
                     return result;
                 }
