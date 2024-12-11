@@ -35,16 +35,33 @@ public class Day10Of2024 implements Advent {
         return result;
     }
 
+    public long calculatePartTwo() throws IOException {
+        var r = readFromFile();
+        var result = 0;
+
+        for (int i = 0; i < r.size(); i++) {
+            for (int j = 0; j < r.getFirst().size(); j++) {
+                var current = r.get(i).get(j);
+                if ("0".equals(current)) {
+                    result += helper2(r, i, j);
+                }
+            }
+        }
+
+
+        return result;
+    }
+
     private void helper(List<List<String>> r, int i, int j, Set<List<Integer>> peeks) {
         if ("9".equals(r.get(i).get(j))) {
             peeks.add(List.of(i, j));
             return;
         }
-        
+
         for (var dir : DIRECTIONS) {
             var newI = i + dir.getFirst();
             var newJ = j + dir.getLast();
-            
+
             if (isInMap(newI, newJ, r)) {
                 var currentHigh = Integer.parseInt(r.get(i).get(j));
                 var nextHigh = Integer.parseInt(r.get(newI).get(newJ));
@@ -55,8 +72,27 @@ public class Day10Of2024 implements Advent {
         }
     }
 
-    public long calculatePartTwo() throws IOException {
-        return 0;
+    private int helper2(List<List<String>> r, int i, int j) {
+        if ("9".equals(r.get(i).get(j))) {
+            return 1;
+        }
+
+        var result = 0;
+        
+        for (var dir : DIRECTIONS) {
+            var newI = i + dir.getFirst();
+            var newJ = j + dir.getLast();
+
+            if (isInMap(newI, newJ, r)) {
+                var currentHigh = Integer.parseInt(r.get(i).get(j));
+                var nextHigh = Integer.parseInt(r.get(newI).get(newJ));
+                if (nextHigh - currentHigh == 1) {
+                    result += helper2(r, newI, newJ);
+                }
+            }
+        }
+        
+        return result;
     }
 
     private List<List<String>> readFromFile() throws IOException {

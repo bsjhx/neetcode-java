@@ -12,5 +12,6 @@ class Day10Of2024Test {
     void calculatePartOne() throws IOException {
         var day = new Day10Of2024();
         assertEquals(36, day.calculatePartOne());
+        assertEquals(81, day.calculatePartTwo());
     }
 }
