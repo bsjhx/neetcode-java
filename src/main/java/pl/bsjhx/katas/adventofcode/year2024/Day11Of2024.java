@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Day11Of2024 implements Advent {
 
@@ -48,7 +47,6 @@ public class Day11Of2024 implements Advent {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         try (InputStream is = classloader.getResourceAsStream("adventofcode2024/day11.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            List<List<String>> result = new ArrayList<>();
 
             String line = reader.readLine();
             return Arrays.stream(line.split(" ")).toList();

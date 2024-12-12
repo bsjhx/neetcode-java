@@ -9,13 +9,6 @@ import java.util.*;
 
 public class Day10Of2024 implements Advent {
 
-    public static final List<List<Integer>> DIRECTIONS = List.of(
-            List.of(-1, 0), // UP
-            List.of(0, 1), // RIGHT
-            List.of(1, 0), // DOWN
-            List.of(0, -1)  // LEFT
-    );
-
     public long calculatePartOne() throws IOException {
         var r = readFromFile();
         var result = 0;
@@ -62,7 +55,7 @@ public class Day10Of2024 implements Advent {
             var newI = i + dir.getFirst();
             var newJ = j + dir.getLast();
 
-            if (isInMap(newI, newJ, r)) {
+            if (Advent.isInMap(newI, newJ, r)) {
                 var currentHigh = Integer.parseInt(r.get(i).get(j));
                 var nextHigh = Integer.parseInt(r.get(newI).get(newJ));
                 if (nextHigh - currentHigh == 1) {
@@ -83,7 +76,7 @@ public class Day10Of2024 implements Advent {
             var newI = i + dir.getFirst();
             var newJ = j + dir.getLast();
 
-            if (isInMap(newI, newJ, r)) {
+            if (Advent.isInMap(newI, newJ, r)) {
                 var currentHigh = Integer.parseInt(r.get(i).get(j));
                 var nextHigh = Integer.parseInt(r.get(newI).get(newJ));
                 if (nextHigh - currentHigh == 1) {
@@ -111,7 +104,4 @@ public class Day10Of2024 implements Advent {
         }
     }
 
-    private static boolean isInMap(Integer i, Integer j, final List<List<String>> map) {
-        return i >= 0 && j >= 0 && i < map.size() && j < map.getFirst().size();
-    }
 }
