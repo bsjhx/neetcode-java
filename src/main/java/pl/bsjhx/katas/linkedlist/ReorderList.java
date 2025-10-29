@@ -1,6 +1,69 @@
 package pl.bsjhx.katas.linkedlist;
 
+import java.util.List;
+
 class ReorderList {
+
+    public void reorderListN(ListNode head) {
+        if (null == head || null == head.next) {
+            return;
+        }
+        var fast = head;
+        var slow = head;
+
+        while (true) {
+            fast = fast.next.next;
+            slow = slow.next;
+
+            if (fast.next == null) {
+                break;
+            }
+
+            if (fast.next.next == null) {
+                slow = slow.next;
+                break;
+            }
+
+        }
+        var head2 = slow;
+        head2 = reverse(head2);
+
+        var curr1 = head;
+        var next1 = curr1.next;
+        var curr2 = head2;
+        var next2 = curr2.next;
+
+        while (curr1.next != null && curr2.next != null) {
+            curr1.next = curr2;
+            curr2.next = next1;
+
+            var temp = next1;
+            curr1 = temp;
+            next1 = temp.next;
+
+            var temp2 = next2;
+            curr2 = temp2;
+            next2 = temp2.next;
+        }
+
+        curr1.next = curr2;
+        curr1.next.next = null;
+
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode current = head;
+        ListNode previous = null;
+
+        while (current != null) {
+            ListNode next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        return previous;
+    }
 
     // This is O(n*n) :D
     public void reorderList(ListNode head) {
