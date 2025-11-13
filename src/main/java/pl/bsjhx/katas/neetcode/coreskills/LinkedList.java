@@ -26,20 +26,16 @@ public class LinkedList {
 
     public void insertHead(int val) {
         if (null == head) {
-            head = new Node();
-            head.value = val;
-        } else {
-            var newNode = new Node();
-            newNode.value = val;
-            newNode.next = head;
-            head = newNode;
+            insertNewHead(val);
+            return;
         }
+
+        head = new Node(val, head);
     }
 
     public void insertTail(int val) {
         if (null == head) {
-            head = new Node();
-            head.value = val;
+            insertNewHead(val);
             return;
         }
 
@@ -48,9 +44,7 @@ public class LinkedList {
             curr = curr.next;
         }
 
-        var newNode = new Node();
-        newNode.value = val;
-        curr.next = newNode;
+        curr.next = new Node(val, null);
     }
 
     public boolean remove(int index) {
@@ -89,8 +83,17 @@ public class LinkedList {
         return ret;
     }
 
+    private void insertNewHead(int val) {
+        head = new Node(val, null);
+    }
+
     private static class Node {
         int value;
         Node next;
+
+        public Node(int value, Node next) {
+            this.value = value;
+            this.next = next;
+        }
     }
 }
