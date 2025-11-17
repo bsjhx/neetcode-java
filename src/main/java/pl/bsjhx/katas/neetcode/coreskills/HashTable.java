@@ -56,14 +56,16 @@ class HashTable {
         }
 
         var curr = array[pos];
+        if (curr.key == key) {
+            array[pos] = curr.next;
+            count--;
+            return true;
+        }
+
         Entry prev = null;
 
         while (curr != null) {
-            if (curr.key == key && prev == null) {
-                array[pos] = curr.next;
-                count--;
-                return true;
-            } else if (curr.key == key) {
+            if (curr.key == key) {
                 prev.next = curr.next;
                 count--;
                 return true;
