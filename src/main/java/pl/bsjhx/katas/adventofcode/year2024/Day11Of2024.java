@@ -1,6 +1,8 @@
 package pl.bsjhx.katas.adventofcode.year2024;
 
 
+import pl.bsjhx.katas.adventofcode.Advent;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

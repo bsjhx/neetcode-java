@@ -1,4 +1,4 @@
-package pl.bsjhx.katas.adventofcode.year2024;
+package pl.bsjhx.katas.adventofcode;
 
 import java.io.IOException;
 import java.util.List;

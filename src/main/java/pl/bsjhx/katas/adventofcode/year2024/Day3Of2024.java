@@ -1,8 +1,9 @@
 package pl.bsjhx.katas.adventofcode.year2024;
 
 
+import pl.bsjhx.katas.adventofcode.Advent;
+
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
