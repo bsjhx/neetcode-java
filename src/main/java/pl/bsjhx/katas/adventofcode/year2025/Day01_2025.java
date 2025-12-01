@@ -57,10 +57,6 @@ public class Day01_2025 implements Advent {
 
     @Override
     public long calculatePartTwo() throws IOException {
-        return Advent.super.calculatePartTwo();
-    }
-
-    private Map<String, Queue<Long>> readFromFile() throws IOException {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         try (InputStream is = classloader.getResourceAsStream("adventofcode2025/day1.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -70,12 +66,35 @@ public class Day01_2025 implements Advent {
             resultMap.put("R", new PriorityQueue<>());
 
             String line;
+            var result = 50;
+            var counter = 0;
             while ((line = reader.readLine()) != null) {
                 var direction = line.substring(0, 1);
                 var number = Integer.parseInt(line.substring(1));
+
+                System.out.println(result + " : " + direction + " " + number +" : " + counter);
+
+                while (number > 0) {
+                    number--;
+                    if ("R".equals(direction)) {
+                        result++;
+                        if (result == 100) {
+                            result = 0;
+                        }
+                    } else {
+                        result--;
+                        if (result == -1) {
+                            result = 99;
+                        }
+                    }
+                    if (result == 0) {
+                        counter++;
+                    }
+                }
             }
 
-            return resultMap;
+            return counter;
         }
     }
+
 }
