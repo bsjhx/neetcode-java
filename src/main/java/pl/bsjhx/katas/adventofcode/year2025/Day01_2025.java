@@ -72,8 +72,6 @@ public class Day01_2025 implements Advent {
                 var direction = line.substring(0, 1);
                 var number = Integer.parseInt(line.substring(1));
 
-                System.out.println(result + " : " + direction + " " + number +" : " + counter);
-
                 while (number > 0) {
                     number--;
                     if ("R".equals(direction)) {
