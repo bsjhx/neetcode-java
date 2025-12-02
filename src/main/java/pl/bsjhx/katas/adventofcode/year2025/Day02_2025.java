@@ -6,10 +6,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Day02_2025 implements Advent {
 
@@ -47,7 +43,41 @@ public class Day02_2025 implements Advent {
 
     @Override
     public long calculatePartTwo() throws IOException {
-        return 0;
+        long res = 0L;
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        try (InputStream is = classloader.getResourceAsStream("adventofcode2025/day2.txt");
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] pairs = line.split(",");
+
+                for (String pair : pairs) {
+                    String[] splitted = pair.split("-");
+                    long start = Long.parseLong(splitted[0]);
+                    long end = Long.parseLong(splitted[1]);
+                    for (long i = start; i <= end; i++) {
+                        String v = String.valueOf(i);
+                        var l = v.substring(0, v.length() / 2);
+
+                        for (int j = 0; j < l.length(); j++) {
+                            if (v.length() % (j + 1) == 0) {
+                                var part = l.substring(0, j + 1);
+                                var n = v.length() / part.length();
+                                String repeated = new String(new char[n]).replace("\0", part);
+                                if (repeated.equals(v)) {
+                                    res += i;
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+        }
+        return res;
     }
 
 }

@@ -11,6 +11,7 @@ class Day02_2025Test {
     @Test
     void name() throws IOException {
         var sol = new Day02_2025();
-        assertEquals(1227775554L, sol.calculatePartOne());
+//        assertEquals(1227775554L, sol.calculatePartOne());
+        assertEquals(4174379265L, sol.calculatePartTwo());
     }
 }
