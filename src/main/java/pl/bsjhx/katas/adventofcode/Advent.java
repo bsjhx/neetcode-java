@@ -12,6 +12,17 @@ public interface Advent {
             List.of(0, -1)  // LEFT
     );
 
+    List<List<Integer>> DIRECTIONS_8 = List.of(
+            List.of(-1, 0),
+            List.of(0, 1),
+            List.of(1, 0),
+            List.of(0, -1),
+            List.of(-1, -1),
+            List.of(-1, 1),
+            List.of(1, -1),
+            List.of(1, 1)
+    );
+
     default long calculatePartOne() throws IOException {
         return 0;
     }
