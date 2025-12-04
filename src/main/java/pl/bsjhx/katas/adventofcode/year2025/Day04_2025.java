@@ -42,7 +42,36 @@ public class Day04_2025 implements Advent {
 
     @Override
     public long calculatePartTwo() throws IOException {
-        return Advent.super.calculatePartTwo();
+        List<List<String>> map = readFromFile();
+        long res = 0;
+        boolean found = true;
+
+        while (found) {
+            found = false;
+            for (int i = 0; i < map.size(); i++) {
+                for (int j = 0; j < map.get(i).size(); j++) {
+                    if ("@".equals(map.get(i).get(j))) {
+                        int c = 0;
+                        for (List<Integer> dir : DIRECTIONS_8) {
+                            if (Advent.isInMap(i + dir.get(0), j + dir.get(1), map)) {
+                                String val = map.get(i + dir.get(0)).get(j + dir.get(1));
+                                if ("@".equals(val)) {
+                                    c++;
+                                }
+                            }
+                        }
+                        if (c < 4) {
+                            res++;
+                            found = true;
+                            map.get(i).set(j, ".");
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 
     private List<List<String>> readFromFile() throws IOException {
@@ -54,7 +83,7 @@ public class Day04_2025 implements Advent {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("");
-                result.add(Arrays.stream(parts).toList());
+                result.add(new ArrayList<>(Arrays.stream(parts).toList()));
             }
 
             return result;
