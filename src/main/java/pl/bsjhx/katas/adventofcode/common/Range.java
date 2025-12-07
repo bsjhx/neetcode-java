@@ -4,6 +4,8 @@ public class Range<T extends Number & Comparable<T>> {
 
     private T start;
     private T end;
+    private boolean startIncluded = true;
+    private boolean endIncluded = false;
 
     public Range(T start, T end) {
         if (start.compareTo(end) > 0) {
@@ -19,7 +21,7 @@ public class Range<T extends Number & Comparable<T>> {
     }
 
     public void mergeWith(Range<T> second) {
-        if (second.getStart().compareTo(this.start) < 0) {
+        if (isSmaller(second)) {
             this.start = second.start;
         }
 
@@ -28,11 +30,28 @@ public class Range<T extends Number & Comparable<T>> {
         }
     }
 
+    private boolean isSmaller(Range<T> second) {
+        if (startIncluded) {
+            return second.getStart().compareTo(this.start) < 0;
+        } else {
+
+        }
+        return second.getStart().compareTo(this.start) < 0;
+    }
+
     public T getStart() {
         return start;
     }
 
     public T getEnd() {
         return end;
+    }
+
+    public void setStartIncluded(boolean startIncluded) {
+        this.startIncluded = startIncluded;
+    }
+
+    public void setEndIncluded(boolean endIncluded) {
+        this.endIncluded = endIncluded;
     }
 }
