@@ -13,7 +13,7 @@ class Day06_2025Test {
     void name() throws IOException {
         var sol = new Day06_2025();
 //        assertEquals(4277556L, sol.calculatePartOne());
-        assertEquals(4277556L, sol.calculatePartTwo());
+        assertEquals(3263827L, sol.calculatePartTwo());
 
     }
 }
