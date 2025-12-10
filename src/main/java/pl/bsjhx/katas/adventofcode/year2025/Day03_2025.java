@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
@@ -60,6 +62,7 @@ public class Day03_2025 implements Advent {
         long res = 0L;
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         PriorityQueue<Integer> pq = new PriorityQueue<>(12);
+        List<String> r = new ArrayList<>();
 
         try (InputStream is = classloader.getResourceAsStream("adventofcode2025/day3.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -69,26 +72,25 @@ public class Day03_2025 implements Advent {
                 String[] split = line.split("");
 
                 for (String s : split) {
-                    int n = Integer.parseInt(s);
-                    if (pq.size() < 12) {
-                        pq.add(n);
+                    if (r.size() < 12) {
+                        r.add(s);
                     } else {
-                        if (n > pq.peek()) {
-                            pq.poll();
-                            pq.add(n);
+                        for (int i = 0; i < r.size() - 1; i++) {
+                            int n = Integer.parseInt(r.get(i));
+                            int n2 = Integer.parseInt(r.get(i + 1));
+
+                            if (n2 > n) {
+                                r.set(i, "");
+                                r.add(s);
+                            } else if (i == r.size() - 1 && Integer.parseInt(r.getLast()) < Integer.parseInt(s)) {
+                                r.add(s);
+                            }
+                            r = r.stream().filter(ss -> !ss.isEmpty()).collect(Collectors.toList());
                         }
                     }
                 }
                 StringBuilder val = new StringBuilder();
-
-                while (!pq.isEmpty()) {
-                    val.append(pq.poll().toString());
-                }
-
-                pq.clear();
-
-                String string = val.reverse().toString();
-                res += Long.parseLong(string);
+                r.clear();
             }
 
         }
