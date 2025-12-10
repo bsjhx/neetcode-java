@@ -17,7 +17,21 @@ public class Range<T extends Number & Comparable<T>> {
     }
 
     public boolean isInRange(T value) {
-        return value.compareTo(start) >= 0 && value.compareTo(end) < 0;
+        return isInStart(value) && isInEnd(value);
+    }
+
+    private boolean isInStart(T value) {
+        if (startIncluded) {
+            return value.compareTo(start) >= 0;
+        }
+        return value.compareTo(start) > 0;
+    }
+
+    private boolean isInEnd(T value) {
+        if (endIncluded) {
+            return value.compareTo(end) <= 0;
+        }
+        return value.compareTo(end) < 0;
     }
 
     public void mergeWith(Range<T> second) {

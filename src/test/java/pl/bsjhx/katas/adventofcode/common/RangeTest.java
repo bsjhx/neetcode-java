@@ -28,6 +28,35 @@ class RangeTest {
         assertFalse(range.isInRange(0));
         assertFalse(range.isInRange(11));
         assertFalse(range.isInRange(-50));
+
+        range.setEndIncluded(true);
+        assertTrue(range.isInRange(5));
+        assertTrue(range.isInRange(1));
+        assertTrue(range.isInRange(9));
+        assertTrue(range.isInRange(10));
+        assertFalse(range.isInRange(0));
+        assertFalse(range.isInRange(11));
+        assertFalse(range.isInRange(-50));
+
+        range.setStartIncluded(false);
+        range.setEndIncluded(true);
+        assertTrue(range.isInRange(5));
+        assertFalse(range.isInRange(1));
+        assertTrue(range.isInRange(9));
+        assertTrue(range.isInRange(10));
+        assertFalse(range.isInRange(0));
+        assertFalse(range.isInRange(11));
+        assertFalse(range.isInRange(-50));
+
+        range.setStartIncluded(false);
+        range.setEndIncluded(false);
+        assertTrue(range.isInRange(5));
+        assertFalse(range.isInRange(1));
+        assertTrue(range.isInRange(9));
+        assertFalse(range.isInRange(10));
+        assertFalse(range.isInRange(0));
+        assertFalse(range.isInRange(11));
+        assertFalse(range.isInRange(-50));
     }
 
     @ParameterizedTest
