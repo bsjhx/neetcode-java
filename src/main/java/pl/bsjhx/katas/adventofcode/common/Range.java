@@ -1,6 +1,6 @@
 package pl.bsjhx.katas.adventofcode.common;
 
-public class Range<T extends Number & Comparable<T>> {
+public class Range<T extends Number & Comparable<T>> implements Comparable<Range<T>> {
 
     private T start;
     private T end;
@@ -14,6 +14,21 @@ public class Range<T extends Number & Comparable<T>> {
 
         this.start = start;
         this.end = end;
+    }
+
+    public boolean mergeWith(Range<T> second) {
+        boolean merged = false;
+        if (second.getStart().compareTo(this.start) < 0) {
+            this.start = second.start;
+            merged = true;
+        }
+
+        if (second.getEnd().compareTo(this.end) > 0) {
+            this.end = second.getEnd();
+            merged = true;
+        }
+
+        return merged;
     }
 
     public boolean isInRange(T value) {
@@ -34,25 +49,6 @@ public class Range<T extends Number & Comparable<T>> {
         return value.compareTo(end) < 0;
     }
 
-    public void mergeWith(Range<T> second) {
-        if (isSmaller(second)) {
-            this.start = second.start;
-        }
-
-        if (second.getEnd().compareTo(this.end) > 0) {
-            this.end = second.getEnd();
-        }
-    }
-
-    private boolean isSmaller(Range<T> second) {
-        if (startIncluded) {
-            return second.getStart().compareTo(this.start) < 0;
-        } else {
-
-        }
-        return second.getStart().compareTo(this.start) < 0;
-    }
-
     public T getStart() {
         return start;
     }
@@ -67,5 +63,10 @@ public class Range<T extends Number & Comparable<T>> {
 
     public void setEndIncluded(boolean endIncluded) {
         this.endIncluded = endIncluded;
+    }
+
+    @Override
+    public int compareTo(Range<T> o) {
+        return this.start.compareTo(o.start);
     }
 }
