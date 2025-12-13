@@ -85,7 +85,6 @@ public class Day07_2025 implements Advent {
     }
 
     private long dfs(int[][] beamPositions, int lastRow, int row, int pos, long[][] memory) {
-        System.out.println("POS " + row + " " + pos);
         long counter = 0;
 
         if (memory[row][pos] != -1) {
