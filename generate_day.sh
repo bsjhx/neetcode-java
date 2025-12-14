@@ -35,12 +35,12 @@ import java.io.IOException;
 public class ${MAIN_CLASS} implements Advent {
 
     @Override
-        public long calculatePartTwo() throws IOException {
+        public long calculatePartOne() throws IOException {
             return Advent.super.calculatePartTwo();
         }
 
         @Override
-        public long calculatePartOne() throws IOException {
+        public long calculatePartTwo() throws IOException {
             return Advent.super.calculatePartOne();
         }
 }
