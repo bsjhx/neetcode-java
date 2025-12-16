@@ -64,6 +64,7 @@ class RangeTest {
     @MethodSource("mergeTestCases")
     void should_marge_ranges(Range<Integer> first, Range<Integer> second, Range<Integer> expected, boolean merged) {
         assertEquals(merged, first.mergeWith(second));
+        assertEquals(merged, first.isMergable(second));
         assertEquals(expected.getStart(), first.getStart());
         assertEquals(expected.getEnd(), first.getEnd());
     }
@@ -78,11 +79,11 @@ class RangeTest {
         queue.add(Range.of(5, 19));
         queue.add(Range.of(7, 9));
 
-        assertEquals(3, Objects.requireNonNull(queue.poll()).getStart());
-        assertEquals(5, Objects.requireNonNull(queue.poll()).getStart());
-        assertEquals(7, Objects.requireNonNull(queue.poll()).getStart());
-        assertEquals(10, Objects.requireNonNull(queue.poll()).getStart());
-        assertEquals(20, Objects.requireNonNull(queue.poll()).getStart());
+        assertEquals(Range.of(3, 5), Objects.requireNonNull(queue.poll()));
+        assertEquals(Range.of(5, 19), Objects.requireNonNull(queue.poll()));
+        assertEquals(Range.of(7, 9), Objects.requireNonNull(queue.poll()));
+        assertEquals(Range.of(10, 20), Objects.requireNonNull(queue.poll()));
+        assertEquals(Range.of(20, 99), Objects.requireNonNull(queue.poll()));
     }
 
     public static Stream<Arguments> mergeTestCases() {

@@ -1,5 +1,7 @@
 package pl.bsjhx.katas.adventofcode.common;
 
+import java.util.Objects;
+
 public class Range<T extends Number & Comparable<T>> implements Comparable<Range<T>> {
 
     private T start;
@@ -43,6 +45,10 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
         return isInStart(value) && isInEnd(value);
     }
 
+    public boolean isMergable(Range<T> newRange) {
+        return isInRange(newRange.getStart()) || isInRange(newRange.getEnd());
+    }
+
     public T getStart() {
         return start;
     }
@@ -74,7 +80,24 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
     }
 
     @Override
+    public String toString() {
+        return "Range=[%s, %s]".formatted(this.start, this.end);
+    }
+
+    @Override
     public int compareTo(Range<T> o) {
         return this.start.compareTo(o.start);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Range<?> range = (Range<?>) o;
+        return startIncluded == range.startIncluded && endIncluded == range.endIncluded && Objects.equals(start, range.start) && Objects.equals(end, range.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end, startIncluded, endIncluded);
     }
 }

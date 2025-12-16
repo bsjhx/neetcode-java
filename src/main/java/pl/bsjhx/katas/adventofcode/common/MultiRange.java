@@ -4,17 +4,29 @@ import java.util.PriorityQueue;
 
 public class MultiRange <T extends Number & Comparable<T>> {
 
-    private PriorityQueue<Range<T>> queue;
+    private final PriorityQueue<Range<T>> queue;
 
     public MultiRange() {
         this.queue = new PriorityQueue<>();
     }
 
-    public void add(Range<T> newRange) {
+    public boolean add(Range<T> newRange) {
+        for (var range : queue) {
+            if (range.isMergable(newRange)) {
+                range.mergeWith(newRange);
+                return true;
+            }
+        }
+
         queue.add(newRange);
+        return false;
     }
 
     public Range<T> next() {
         return queue.poll();
+    }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
     }
 }
