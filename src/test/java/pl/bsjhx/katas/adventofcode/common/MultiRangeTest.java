@@ -33,10 +33,27 @@ class MultiRangeTest {
         assertTrue(multiRange.add(of(4, 50)));
         assertFalse(multiRange.add(of(-10, -5)));
         assertFalse(multiRange.isEmpty());
+        assertEquals(2, multiRange.size());
 
         assertEquals(of(-10, -5), multiRange.next());
         assertEquals(of(1, 50), multiRange.next());
 
         assertTrue(multiRange.isEmpty());
+    }
+
+    @Test
+    void should_be_able_to_add_new_range_with_merging_when_ranges_are_various() {
+        MultiRange<Integer> multiRange = new MultiRange<>();
+        assertTrue(multiRange.isEmpty());
+
+        assertFalse(multiRange.add(of(1, 5)));
+        assertFalse(multiRange.add(of(10, 50)));
+        assertTrue(multiRange.add(of(4, 30)));
+        assertEquals(1, multiRange.size());
+
+        assertEquals(of(1, 50), multiRange.next());
+
+        assertTrue(multiRange.isEmpty());
+        assertEquals(0, multiRange.size());
     }
 }
