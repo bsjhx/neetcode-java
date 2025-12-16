@@ -3,7 +3,6 @@ package pl.bsjhx.katas.adventofcode.common;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Objects;
@@ -16,13 +15,13 @@ class RangeTest {
 
     @Test
     void range_should_be_in_proper_order() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new Range<>(5L, 2L));
-        assertDoesNotThrow(() -> new Range<>(5L, 20L));
+        assertThrowsExactly(IllegalArgumentException.class, () -> Range.of(5L, 2L));
+        assertDoesNotThrow(() -> Range.of(5L, 20L));
     }
 
     @Test
     void should_check_if_in_range() {
-        var range = new Range<>(1, 10);
+        var range = Range.of(1, 10);
         assertTrue(range.isInRange(5));
         assertTrue(range.isInRange(1));
         assertTrue(range.isInRange(9));
@@ -73,11 +72,11 @@ class RangeTest {
     void priorityQueueShouldReturnRangesInAscendingOrderByStart() {
         PriorityQueue<Range<Integer>> queue = new PriorityQueue<>();
 
-        queue.add(new Range<>(20, 99));
-        queue.add(new Range<>(10, 20));
-        queue.add(new Range<>(3, 5));
-        queue.add(new Range<>(5, 19));
-        queue.add(new Range<>(7, 9));
+        queue.add(Range.of(20, 99));
+        queue.add(Range.of(10, 20));
+        queue.add(Range.of(3, 5));
+        queue.add(Range.of(5, 19));
+        queue.add(Range.of(7, 9));
 
         assertEquals(3, Objects.requireNonNull(queue.poll()).getStart());
         assertEquals(5, Objects.requireNonNull(queue.poll()).getStart());
@@ -89,28 +88,35 @@ class RangeTest {
     public static Stream<Arguments> mergeTestCases() {
         return Stream.of(
                 Arguments.of(
-                        new Range<>(1, 10),
-                        new Range<>(0, 11),
-                        new Range<>(0, 11),
+                        Range.of(1, 10),
+                        Range.of(5, 6),
+                        Range.of(1, 10),
                         true
                 ),
                 Arguments.of(
-                        new Range<>(1, 10),
-                        new Range<>(5, 6),
-                        new Range<>(1, 10),
-                        false
-                ),
-                Arguments.of(
-                        new Range<>(1, 10),
-                        new Range<>(-5, 6),
-                        new Range<>(-5, 10),
+                        Range.of(1, 10),
+                        Range.of(0, 11),
+                        Range.of(0, 11),
                         true
                 ),
                 Arguments.of(
-                        new Range<>(1, 10),
-                        new Range<>(5, 100),
-                        new Range<>(1, 100),
+                        Range.of(1, 10),
+                        Range.of(-5, 6),
+                        Range.of(-5, 10),
                         true
-                ));
+                ),
+                Arguments.of(
+                        Range.of(1, 10),
+                        Range.of(5, 100),
+                        Range.of(1, 100),
+                        true
+                ),
+                Arguments.of(
+                        Range.of(1, 10),
+                        Range.of(-100, 100),
+                        Range.of(-100, 100),
+                        true
+                )
+        );
     }
 }

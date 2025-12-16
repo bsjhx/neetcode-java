@@ -7,7 +7,7 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
     private boolean startIncluded = true;
     private boolean endIncluded = false;
 
-    public Range(T start, T end) {
+    private Range(T start, T end) {
         if (start.compareTo(end) > 0) {
             throw new IllegalArgumentException("Start of range must be less or equal than end");
         }
@@ -16,8 +16,16 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
         this.end = end;
     }
 
+    public static <T extends Number & Comparable<T>> Range<T> of(T left, T right) {
+        return new Range<>(left, right);
+    }
+
     public boolean mergeWith(Range<T> second) {
+        if (second.getStart().compareTo(this.start) > 0 && second.getEnd().compareTo(this.end) < 0) {
+            return true;
+        }
         boolean merged = false;
+
         if (second.getStart().compareTo(this.start) < 0) {
             this.start = second.start;
             merged = true;
@@ -35,20 +43,6 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
         return isInStart(value) && isInEnd(value);
     }
 
-    private boolean isInStart(T value) {
-        if (startIncluded) {
-            return value.compareTo(start) >= 0;
-        }
-        return value.compareTo(start) > 0;
-    }
-
-    private boolean isInEnd(T value) {
-        if (endIncluded) {
-            return value.compareTo(end) <= 0;
-        }
-        return value.compareTo(end) < 0;
-    }
-
     public T getStart() {
         return start;
     }
@@ -63,6 +57,20 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
 
     public void setEndIncluded(boolean endIncluded) {
         this.endIncluded = endIncluded;
+    }
+
+    private boolean isInStart(T value) {
+        if (startIncluded) {
+            return value.compareTo(start) >= 0;
+        }
+        return value.compareTo(start) > 0;
+    }
+
+    private boolean isInEnd(T value) {
+        if (endIncluded) {
+            return value.compareTo(end) <= 0;
+        }
+        return value.compareTo(end) < 0;
     }
 
     @Override
