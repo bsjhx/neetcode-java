@@ -57,7 +57,9 @@ public class Day05_2025 implements Advent {
             String line;
             while (!(line = reader.readLine()).isEmpty()) {
                 String[] split = line.split("-");
-                mr.add(Range.of(Long.parseLong(split[0]), Long.parseLong(split[1])));
+                Range<Long> range = Range.of(Long.parseLong(split[0]), Long.parseLong(split[1]));
+                range.setEndIncluded(true);
+                mr.add(range);
             }
 
             while (!mr.isEmpty()) {

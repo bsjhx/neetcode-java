@@ -70,6 +70,13 @@ class RangeTest {
     }
 
     @Test
+    void single_value_ranges_should_be_mergable() {
+        Range<Integer> range = Range.of(1, 15);
+        range.setEndIncluded(true);
+        assertTrue(range.isMergable(Range.of(15, 15)));
+    }
+
+    @Test
     void priorityQueueShouldReturnRangesInAscendingOrderByStart() {
         PriorityQueue<Range<Integer>> queue = new PriorityQueue<>();
 

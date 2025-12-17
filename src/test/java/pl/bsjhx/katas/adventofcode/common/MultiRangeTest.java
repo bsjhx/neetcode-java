@@ -108,4 +108,12 @@ class MultiRangeTest {
         assertFalse(multiRange.add(of(11, 12)));
         assertEquals(2, multiRange.size());
     }
+
+    @Test
+    void should_add_single_value_ranges() {
+        MultiRange<Integer> multiRange = new MultiRange<>();
+        assertFalse(multiRange.add(of(1, 10)));
+        assertTrue(multiRange.add(of(1 , 1)));
+        assertEquals(1, multiRange.size());
+    }
 }
