@@ -1,13 +1,15 @@
 package pl.bsjhx.katas.adventofcode.common;
 
-public class Range<T extends Number & Comparable<T>> {
+import java.util.Objects;
+
+public class Range<T extends Number & Comparable<T>> implements Comparable<Range<T>> {
 
     private T start;
     private T end;
     private boolean startIncluded = true;
     private boolean endIncluded = false;
 
-    public Range(T start, T end) {
+    private Range(T start, T end) {
         if (start.compareTo(end) > 0) {
             throw new IllegalArgumentException("Start of range must be less or equal than end");
         }
@@ -16,27 +18,36 @@ public class Range<T extends Number & Comparable<T>> {
         this.end = end;
     }
 
-    public boolean isInRange(T value) {
-        return value.compareTo(start) >= 0 && value.compareTo(end) < 0;
+    public static <T extends Number & Comparable<T>> Range<T> of(T left, T right) {
+        return new Range<>(left, right);
     }
 
-    public void mergeWith(Range<T> second) {
-        if (isSmaller(second)) {
+    public boolean mergeWith(Range<T> second) {
+        if (second.getStart().compareTo(this.start) > 0 && second.getEnd().compareTo(this.end) < 0) {
+            return true;
+        }
+        boolean merged = false;
+
+        if (second.getStart().compareTo(this.start) < 0) {
             this.start = second.start;
+            merged = true;
         }
 
         if (second.getEnd().compareTo(this.end) > 0) {
             this.end = second.getEnd();
+            merged = true;
         }
+
+        return merged;
     }
 
-    private boolean isSmaller(Range<T> second) {
-        if (startIncluded) {
-            return second.getStart().compareTo(this.start) < 0;
-        } else {
+    public boolean isInRange(T value) {
+        return isInStart(value) && isInEnd(value);
+    }
 
-        }
-        return second.getStart().compareTo(this.start) < 0;
+    public boolean isMergable(Range<T> newRange) {
+        return isInRange(newRange.getStart()) || isInRange(newRange.getEnd())
+                || newRange.isInRange(this.start) || newRange.isInRange(this.end);
     }
 
     public T getStart() {
@@ -53,5 +64,41 @@ public class Range<T extends Number & Comparable<T>> {
 
     public void setEndIncluded(boolean endIncluded) {
         this.endIncluded = endIncluded;
+    }
+
+    private boolean isInStart(T value) {
+        if (startIncluded) {
+            return value.compareTo(start) >= 0;
+        }
+        return value.compareTo(start) > 0;
+    }
+
+    private boolean isInEnd(T value) {
+        if (endIncluded) {
+            return value.compareTo(end) <= 0;
+        }
+        return value.compareTo(end) < 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Range=[%s, %s]".formatted(this.start, this.end);
+    }
+
+    @Override
+    public int compareTo(Range<T> o) {
+        return this.start.compareTo(o.start);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Range<?> range = (Range<?>) o;
+        return startIncluded == range.startIncluded && endIncluded == range.endIncluded && Objects.equals(start, range.start) && Objects.equals(end, range.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end, startIncluded, endIncluded);
     }
 }
