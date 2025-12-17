@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class MultiRange <T extends Number & Comparable<T>> {
+public class MultiRange<T extends Number & Comparable<T>> {
 
     private final PriorityQueue<Range<T>> queue;
 
@@ -14,28 +14,22 @@ public class MultiRange <T extends Number & Comparable<T>> {
 
     public boolean add(Range<T> newRange) {
         boolean merged = false;
-        Range<T> temp = null;
-        List<Range<T>> toRemove = new ArrayList<>();
+        List<Range<T>> toMerge = new ArrayList<>();
 
         for (var range : queue) {
-            if (merged) {
-                if (temp.isMergable(range)) {
-                    temp.mergeWith(range);
-                    toRemove.add(range);
-                }
-            }
-            if (range.isMergable(newRange)) {
-                range.mergeWith(newRange);
-                temp = range;
+            if (newRange.isMergable(range)) {
+                toMerge.add(range);
                 merged = true;
             }
         }
 
-        queue.removeAll(toRemove);
-
-        if (!merged) {
-            queue.add(newRange);
+        for (var range : toMerge) {
+            newRange.mergeWith(range);
         }
+
+        queue.removeAll(toMerge);
+        queue.add(newRange);
+
         return merged;
     }
 

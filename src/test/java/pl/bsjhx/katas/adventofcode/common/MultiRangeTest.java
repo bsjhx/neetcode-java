@@ -56,4 +56,56 @@ class MultiRangeTest {
         assertTrue(multiRange.isEmpty());
         assertEquals(0, multiRange.size());
     }
+
+    @Test
+    void should_be_able_to_add_new_range_with_merging_when_ranges_are_various_part_2() {
+        MultiRange<Integer> multiRange = new MultiRange<>();
+        assertTrue(multiRange.isEmpty());
+
+        assertFalse(multiRange.add(of(1, 5)));
+        assertFalse(multiRange.add(of(9, 11)));
+        assertFalse(multiRange.add(of(16, 20)));
+        assertFalse(multiRange.add(of(-100, -89)));
+        assertFalse(multiRange.add(of(25, 36)));
+        assertFalse(multiRange.add(of(100, 899)));
+        assertEquals(6, multiRange.size());
+
+        assertTrue(multiRange.add(of(-101, 900)));
+        assertEquals(1, multiRange.size());
+
+        assertEquals(of(-101, 900), multiRange.next());
+
+        assertTrue(multiRange.isEmpty());
+        assertEquals(0, multiRange.size());
+    }
+
+    @Test
+    void should_be_able_to_add_new_range_with_merging_when_ranges_are_various_part_3() {
+        MultiRange<Integer> multiRange = new MultiRange<>();
+        assertTrue(multiRange.isEmpty());
+
+        assertFalse(multiRange.add(of(1, 5)));
+        assertFalse(multiRange.add(of(9, 11)));
+        assertFalse(multiRange.add(of(16, 20)));
+        assertFalse(multiRange.add(of(-100, -89)));
+        assertFalse(multiRange.add(of(25, 36)));
+        assertFalse(multiRange.add(of(100, 899)));
+        assertEquals(6, multiRange.size());
+
+        assertTrue(multiRange.add(of(-101, 900)));
+        assertEquals(1, multiRange.size());
+
+        assertEquals(of(-101, 900), multiRange.next());
+
+        assertTrue(multiRange.isEmpty());
+        assertEquals(0, multiRange.size());
+
+        assertFalse(multiRange.add(of(1, 5)));
+        assertTrue(multiRange.add(of(1, 5)));
+        assertEquals(1, multiRange.size());
+
+        assertTrue(multiRange.add(of(5, 10)));
+        assertFalse(multiRange.add(of(11, 12)));
+        assertEquals(2, multiRange.size());
+    }
 }

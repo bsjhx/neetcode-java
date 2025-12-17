@@ -46,7 +46,8 @@ public class Range<T extends Number & Comparable<T>> implements Comparable<Range
     }
 
     public boolean isMergable(Range<T> newRange) {
-        return isInRange(newRange.getStart()) || isInRange(newRange.getEnd());
+        return isInRange(newRange.getStart()) || isInRange(newRange.getEnd())
+                || newRange.isInRange(this.start) || newRange.isInRange(this.end);
     }
 
     public T getStart() {

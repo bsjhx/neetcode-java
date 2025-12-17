@@ -63,8 +63,8 @@ class RangeTest {
     @ParameterizedTest
     @MethodSource("mergeTestCases")
     void should_marge_ranges(Range<Integer> first, Range<Integer> second, Range<Integer> expected, boolean merged) {
-        assertEquals(merged, first.mergeWith(second));
         assertEquals(merged, first.isMergable(second));
+        assertEquals(merged, first.mergeWith(second));
         assertEquals(expected.getStart(), first.getStart());
         assertEquals(expected.getEnd(), first.getEnd());
     }
