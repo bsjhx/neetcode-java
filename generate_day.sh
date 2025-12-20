@@ -30,18 +30,39 @@ package pl.bsjhx.katas.adventofcode.year${YEAR};
 
 import pl.bsjhx.katas.adventofcode.Advent;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ${MAIN_CLASS} implements Advent {
 
-    @Override
+        @Override
         public long calculatePartOne() throws IOException {
-            return Advent.super.calculatePartTwo();
+             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+             try (InputStream is = classloader.getResourceAsStream("adventofcode2025/day${DAY}.txt");
+                  BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+
+                 String line;
+                 while ((line = reader.readLine()) != null) {
+                 }
+
+                 return 0L;
+             }
         }
 
         @Override
         public long calculatePartTwo() throws IOException {
-            return Advent.super.calculatePartOne();
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+                         try (InputStream is = classloader.getResourceAsStream("adventofcode2025/day${DAY}.txt");
+                              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+
+                             String line;
+                             while ((line = reader.readLine()) != null) {
+                             }
+
+                             return 0L;
+                }
         }
 }
 EOF

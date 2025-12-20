@@ -6,11 +6,11 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Day09_2025Test {
+class Day10_2025Test {
 
     @Test
     void test() throws IOException {
-        assertEquals(0L, new Day09_2025().calculatePartOne());
-        assertEquals(0L, new Day09_2025().calculatePartTwo());
+        assertEquals(7L, new Day10_2025().calculatePartOne());
+//        assertEquals(0L, new Day10_2025().calculatePartTwo());
     }
 }
