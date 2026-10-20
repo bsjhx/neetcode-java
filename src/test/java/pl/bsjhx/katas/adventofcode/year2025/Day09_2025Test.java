@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class Day09_2025Test {
 
     @Test
-    void name() throws IOException {
-        assertEquals(50L, new Day09_2025().calculatePartOne());
-//        assertEquals(0L, new Day09_2025().calculatePartTwo());
+    void test() throws IOException {
+        assertEquals(0L, new Day09_2025().calculatePartOne());
+        assertEquals(0L, new Day09_2025().calculatePartTwo());
     }
 }
