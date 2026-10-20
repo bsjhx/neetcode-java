@@ -10,7 +10,7 @@ class Day08_2025Test {
 
     @Test
     void name() throws IOException {
-        assertEquals(50L, new Day08_2025().calculatePartOne());
+        assertEquals(40L, new Day08_2025().calculatePartOne());
 //        assertEquals(0L, new Day08_2025().calculatePartTwo());
     }
 }
