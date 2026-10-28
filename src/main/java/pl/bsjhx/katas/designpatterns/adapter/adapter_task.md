@@ -27,7 +27,7 @@ public class ExternalCurrencyApi {
 }
 ```
 
-The external API returns data in the following format:
+The external API returns data in the following formatter:
 
 ```java
 Map.of(
@@ -64,7 +64,7 @@ ExchangeRateProvider provider = new ExternalCurrencyAdapter(externalApi);
 BigDecimal rate = provider.getRate("EUR", "PLN");
 ```
 
-The client must depend only on `ExchangeRateProvider`, not on `ExternalCurrencyApi` or its response format.
+The client must depend only on `ExchangeRateProvider`, not on `ExternalCurrencyApi` or its response formatter.
 
 ### 2. Handle invalid responses
 
