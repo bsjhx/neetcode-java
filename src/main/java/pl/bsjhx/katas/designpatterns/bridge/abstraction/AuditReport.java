@@ -11,12 +11,11 @@ public class AuditReport extends Report {
 
     @Override
     public String generate(int data) {
-        var content = new Content(
+        return format(
+                new Content(
                 "Audit Report",
                 "Failed login attempts: %s".formatted(data)
-        );
-
-        return format(content);
+        ));
     }
 
 }

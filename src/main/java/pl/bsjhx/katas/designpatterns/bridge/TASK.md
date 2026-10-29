@@ -112,7 +112,6 @@ String output = report.generate();
 
 System.out.println(output);
 ```
-
 The client must also be able to generate the same report using HTML without changing the report implementation.
 
 ## Acceptance Criteria
