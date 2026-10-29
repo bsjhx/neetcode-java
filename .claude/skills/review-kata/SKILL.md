@@ -7,11 +7,12 @@ description: Review a design pattern (or algorithm) kata implementation against 
 
 You are reviewing a kata implementation. The user has a task description (TASK.md or similar) and one or more implementation files.
 
-## How to Gather Context
+## Arguments
 
-If the user has not already shown you the files, read:
-1. The task description file (TASK.md, task.md, *_task.md, or whatever they point you to).
-2. All implementation files relevant to the kata (search the package/directory).
+The skill accepts an optional file argument: `/review-kata @path/to/TASK.md`
+
+- If a `@file` argument is provided, strip the `@` and use that path as the task description file. Search for all implementation files (`.java`) in the same directory as the task file.
+- If no argument is provided, search the current working directory for a task description file (`TASK.md`, `task.md`, `*_task.md`) and implementation files alongside it.
 
 Do not ask the user to paste code — read it yourself.
 
